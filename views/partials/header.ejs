@@ -1,0 +1,20 @@
+<header id="top-header">
+  <nav class="nav nav1">
+    <span class="site-name">
+      <a href="/" title="Return to home page">Cookbook Project</a>
+    </span>
+    <a title="Click to see our recipes" href="/recipes/">Recipes</a>
+  </nav>
+  <img src="/images/site/logo.webp" alt="cookbook project logo" class="logo" width="100" height="100">
+  <nav class="nav nav2">
+    <a title="Click to submit your recipe" href="/recipes/submit">Submit your recipe</a>
+    <div id="account">
+      <% if (locals.loggedin) { %>
+        <a title="Click to manage your account" href="/account/">Welcome <%= locals.accountData.username %></a>
+        <a title="Click to log out" href="/account/logout">Logout</a>
+        <% } else { %>
+        <a title="Click to log in" href="/account/login">My Account</a>
+        <% } %>
+    </div>
+  </nav>
+</header>
