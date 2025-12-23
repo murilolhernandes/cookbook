@@ -11,11 +11,11 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
-// const inventoryController = require("./routes/inventoryRoute")
+const recipesRoute = require("./routes/recipesRoute")
+const accountRoute = require("./routes/accountRoute")
 const utilities = require("./utilities/")
 const session = require("express-session")
 const pool = require("./database/")
-const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 
 /* ***********************
@@ -32,8 +32,8 @@ app.use(session({
   name: 'sessionId',
 }))
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 /* ***********************
@@ -44,7 +44,7 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
-app.use(utilities.checkJWTToken)
+// app.use(utilities.checkJWTToken)
 
 /* ***********************
  * Routes
@@ -61,11 +61,11 @@ app.use(static)
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 
-// Inventory routes
-// app.use("/inv", inventoryRoute)
+// Recipes routes
+// app.use("/recipes", recipesRoute)
 
 // Account routes
-app.use("/account", require('./routes/accountRoute'))
+// app.use("/account", accountRoute)
 
 // File Not Found Route - last route in list
 app.use(async (req, res, next) => {
