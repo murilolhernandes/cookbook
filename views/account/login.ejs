@@ -22,18 +22,27 @@
     <fieldset>
       <legend>Login</legend>
       <div class="information">
-        <label for="email">Email:</label>
+        <!-- <label for="email">Email:</label>
         <input type="email" id="email" name="email" title="Your email address" autocomplete="email" required value="<%= locals.email %>">
 
         <label for="password_hash">Password:</label>
-        <input type="password" id="password_hash" name="password_hash" title="Password must be at least 8 characters, contain at least 1 capital letter." autocomplete="current-password" pattern="">
-        <span id="show-password">Show Password</span>
+        <input type="password" id="password_hash" name="password_hash" title="Password" autocomplete="current-password" pattern="">
+        <span id="show-password">Show Password</span> -->
 
-        <input type="submit" value="Login">
+        <!-- <input type="submit" value="Login">
         <p class="register">No account?
-          <a href="/account/register">Sign-up</a>
-        </p>
+          <a href="/account/register">Sign-up with Google</a>
+        </p> -->
+        <input id="google-btn" type="button" value="Login with Google">
       </div>
     </fieldset>
   </form>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const SUPABASE_URL = "<%- SUPABASE_URL %>";
+    const SUPABASE_ANON_KEY = "<%- SUPABASE_ANON_KEY %>";
+</script>
+<script src="../../js/account.js" defer></script>
+<!-- <script src="/js/account.js" defer></script> -->

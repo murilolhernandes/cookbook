@@ -11,6 +11,7 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
+const accountController = require("./controllers/accountController")
 const recipesRoute = require("./routes/recipesRoute")
 const accountRoute = require("./routes/accountRoute")
 const utilities = require("./utilities/")
@@ -59,13 +60,14 @@ app.set("layout", "./layouts/layout")
 app.use(static)
 
 // Index route
-app.get("/", utilities.handleErrors(baseController.buildHome))
+// app.get("/", utilities.handleErrors(baseController.buildHome))
+app.get("/", utilities.handleErrors(accountController.buildLogin))
 
 // Recipes routes
 // app.use("/recipes", recipesRoute)
 
 // Account routes
-// app.use("/account", accountRoute)
+app.use("/account", accountRoute)
 
 // File Not Found Route - last route in list
 app.use(async (req, res, next) => {
