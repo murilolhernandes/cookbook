@@ -48,6 +48,15 @@ app.use(function(req, res, next){
 // app.use(utilities.checkJWTToken)
 
 /* ***********************
+ * Middleware to check login status
+ *************************/
+app.use((req, res, next) => {
+  res.locals.loggedin = req.session.loggedin || false;
+  res.locals.accountData = req.session.accountData || {};
+  next();
+})
+
+/* ***********************
  * Routes
 *************************/
 app.set("view engine", "ejs")

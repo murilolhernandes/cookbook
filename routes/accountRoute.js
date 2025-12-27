@@ -5,8 +5,11 @@ const accountController = require("../controllers/accountController")
 const utilities = require("../utilities")
 // const regValidate = require('../utilities/account-validation')
 
+// Route to build the account management view
+router.get("/", utilities.handleErrors(accountController.buildAccount));
+
 // Route to build the account view
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
+// router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 // Route to build account information through the register page
 // router.get("/register", utilities.handleErrors(accountController.buildRegister));
@@ -23,8 +26,8 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 //   regValidate.checkLoginData,
 //   utilities.handleErrors(accountController.accountLogin));
 
-// Route to post the login
-// router.post("/login/",
+// Route to handle the Google Login "Bridge"
+router.post("/auth/google", utilities.handleErrors(accountController.googleAuth));
 
 // )
 
