@@ -73,7 +73,7 @@ app.use(static)
 app.get("/", utilities.handleErrors(accountController.buildLogin))
 
 // Recipes routes
-// app.use("/recipes", recipesRoute)
+app.use("/recipes", recipesRoute)
 
 // Account routes
 app.use("/account", accountRoute)

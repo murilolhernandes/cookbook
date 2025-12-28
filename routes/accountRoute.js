@@ -29,7 +29,7 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 // Route to handle the Google Login "Bridge"
 router.post("/auth/google", utilities.handleErrors(accountController.googleAuth));
 
-// // Route to log the user out
+// Route to log the user out
 router.get("/logout", utilities.handleErrors(accountController.logout));
 
 module.exports = router

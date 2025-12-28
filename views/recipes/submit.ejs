@@ -1,0 +1,41 @@
+<!-- Content heading -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<!-- Message block -->
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+  <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
+
+<!-- <div><h2 class="wayfinding">Submit Your Recipe</h2></div> -->
+<div class="main-content">
+  <form id="submitRecipe" method="post" action="">
+    <fieldset>
+      <legend>Share Your Recipe With Us</legend>
+      <div>Required fields are marked with an <span class="required">*</span></div>
+      <label>Name <span class="required">*</span><input type="text" name="name" title="Please enter your name" autocomplete="name" placeholder="John Doe" required></label>
+      <label>Recipe's title <span class="required">*</span><input type="text" name="title" title="Please enter the title of your recipe" placeholder="Tasty Cake" required></label>
+      <label>Image <span class="required">*</span><input type="file" accept="image/*" name="image" title="Please upload an image of your recipe" id="imageInput" required></label>
+      <label>Description <span class="required">*</span><textarea name="description" rows="5" placeholder="Enter a description of your recipe" title="Please enter a description of your recipe" required></textarea></label>
+      <label>Prep time <span class="required">*</span><input type="text" name="prep-time" title="Please enter the prep time" placeholder="15 mins" required></label>
+      <label>Cook time <span class="required">*</span><input type="text" name="cook-time" title="Please enter the cook time" placeholder="30 mins" required></label>
+      <label>Additional time <input type="text" name="additional-time" title="Please enter the additional time" placeholder="35 mins"></label>
+      <label>Total time <span class="required">*</span><input type="text" name="total-time" title="Please enter the total time" placeholder="80 mins" required></label>
+      <label>Servings <span class="required">*</span><input type="number" name="serving" title="Please enter the number of servings" placeholder="4" required></label>
+      <label>Yield <input type="text" name="yield" title="Please enter the yield" placeholder="4 servings"></label>
+      <label>Ingredients <span class="required">*</span><textarea name="ingredients" rows="5" placeholder="Enter each ingredient on a new line" title="Please enter the ingredients of your recipe" spellcheck="true" required></textarea></label>
+      <label>Instructions <span class="required">*</span><textarea name="instructions" rows="10" placeholder="Enter each step on a new line" title="Please enter the instructions of your recipe" spellcheck="true" required></textarea></label>
+      <input type="hidden" name="timestamp" id="timestamp">
+      <input type="submit" value="Share My Recipe">
+    </fieldset>
+  </form>
+</div>
