@@ -63,4 +63,19 @@ accountController.buildAccount = async function(req, res, next) {
   })
 }
 
+accountController.logout = async function(req, res, next) {
+  // Set a flash message to be displayed on the next page.
+  req.flash("notice", "You have been successfully logged out.");
+
+  // Clear the authentication state from the session, but keep the session itself
+  // so the flash message can be delivered on the next request.
+  req.session.loggedin = false;
+  req.session.accountData = null;
+
+  req.session.save(err => {
+    if (err) return next(err);
+    res.redirect("/?logout=success");
+  });
+}
+
 module.exports = accountController

@@ -9,7 +9,7 @@ const utilities = require("../utilities")
 router.get("/", utilities.handleErrors(accountController.buildAccount));
 
 // Route to build the account view
-// router.get("/login", utilities.handleErrors(accountController.buildLogin));
+router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 // Route to build account information through the register page
 // router.get("/register", utilities.handleErrors(accountController.buildRegister));
@@ -29,9 +29,7 @@ router.get("/", utilities.handleErrors(accountController.buildAccount));
 // Route to handle the Google Login "Bridge"
 router.post("/auth/google", utilities.handleErrors(accountController.googleAuth));
 
-// )
-
 // // Route to log the user out
-// router.get("/logout", utilities.handleErrors(accountController.logout));
+router.get("/logout", utilities.handleErrors(accountController.logout));
 
 module.exports = router
