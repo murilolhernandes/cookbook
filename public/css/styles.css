@@ -1,0 +1,173 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  background-color: #F4F1DE;
+}
+
+.header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #F4F1DE;
+  border-bottom: 1px solid #000;
+}
+
+.header.open {
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nav {
+  padding: .5rem;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  font-family: "Open Sans", serif;
+  color: #3D3D3D;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #E05B37;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+h1 {
+  color: #E05B37;
+  font-family: "Open Sans", serif;
+  font-weight: 800;
+  font-size: 3rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.wayfinding {
+  color: #E05B37;
+  font-family: "Open Sans", serif;
+  font-weight: 800;
+  font-size: 3rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.main-content {
+  padding-bottom: 2rem; 
+}
+
+fieldset, input, textarea, select {
+  border-radius: 3px;
+  border: 1px solid #E05B37;
+}
+
+fieldset {
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.required {
+  color: rgb(185, 39, 39);
+}
+
+input[type="file"] {
+  border: none;
+}
+
+legend, label, fieldset div {
+  font-family: "Open Sans", serif;
+  color: #3D3D3D;
+  font-weight: bold;
+}
+
+legend {
+  color: #4F8269;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+label {
+  display: block;
+  padding: 1rem 0;
+}
+
+input:required, textarea:required {
+  border-bottom: 8px solid red;
+}
+
+input:required:valid, textarea:required:valid {
+  border-bottom: 8px solid green;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 1rem;
+  font-family: "Open Sans", serif;
+  font-weight: 600;
+}
+
+input[type="submit"] {
+  background-color: #E05B37;
+  color: #F4F1DE;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+
+@media screen and (min-width: 48rem) {
+  .header {
+    display: block;
+  }
+  #top-header {
+    display: grid;
+    grid-template: 1fr / 1fr 100px 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  .logo {
+    justify-self: center;
+  }
+  .nav {
+    display: inline-flex;
+    gap: 2rem;
+  }
+  .nav1 {
+    justify-self: flex-end;
+  }
+  .nav2 {
+    justify-self: flex-start;
+  }
+  input, textarea {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  .nav {
+    font-size: 1.2rem;
+  }
+  .main-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 90rem) {
+  .main-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
