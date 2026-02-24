@@ -22,15 +22,20 @@ const cookieParser = require("cookie-parser")
 /* ***********************
  * Middleware
 *************************/
+app.use(static)
 app.use(session({
   store: new (require('connect-pg-simple')(session)) ({
     createTableIfMissing: true,
     pool,
   }),
   secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   name: 'sessionId',
+  rolling: true,
+  cookie: {
+    maxAge: 5 * 60 * 60 * 1000, 
+  },
 }))
 
 app.use(express.json())
@@ -44,6 +49,22 @@ app.use(require('connect-flash')())
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
+})
+
+// Middleware to discard empty sessions before saving
+app.use((req, res, next) => {
+  const originalEnd = res.end;
+  res.end = function (...args) {
+    if (req.session && req.session.flash && Object.keys(req.session.flash).length === 0) {
+      delete req.session.flash;
+    }
+    if (req.session && !req.session.loggedin && Object.keys(req.session).length <= 1) {
+    // if (req.session && !req.session.loggedin) {
+      req.session = null;
+    }
+    return originalEnd.apply(this, args);
+  };
+  next();
 })
 // app.use(utilities.checkJWTToken)
 
@@ -66,7 +87,6 @@ app.set("layout", "./layouts/layout")
 /* ***********************
  * Routes
 *************************/
-app.use(static)
 
 // Index route
 // app.get("/", utilities.handleErrors(baseController.buildHome))
@@ -90,7 +110,8 @@ app.use(async (req, res, next) => {
  * Express Error Handler
 *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
+  // let nav = await utilities.getNav()
+  let nav = "false"
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   let message
   if (err.status == 400) {

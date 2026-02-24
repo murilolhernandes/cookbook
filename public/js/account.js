@@ -27,9 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/account/login`, // Redirect to home page after login
-          queryParams: { // Can be used during development, but removed for final production so the user doesn't have to log in every single time
-            prompt: 'select_account',
-          },
         },
       })
 

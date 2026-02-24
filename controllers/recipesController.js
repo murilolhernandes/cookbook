@@ -6,7 +6,8 @@ require("dotenv").config()
 const recipesController = {}
 
 recipesController.buildSubmitRecipes = async function (req, res, next) {
-  const nav = await utilities.getNav()
+  // const nav = await utilities.getNav()
+  const nav = "false"
   res.render("recipes/submit", {
     title: "Submit Your Recipe",
     nav,
