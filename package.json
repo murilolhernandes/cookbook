@@ -4,7 +4,8 @@
   "description": "Starter project for Senior Project",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "prod": "node server.js"
   },
   "author": "Murilo Hernandes",
   "license": "MLH",

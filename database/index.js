@@ -14,7 +14,7 @@ if (process.env.NODE_ENV == "development") {
       rejectUnauthorized: false,
     },
     connectionTimeoutMillis: 30000, // Give Supabase 10 seconds to connect
-    idleTimeoutMillis: 10000, // Close idle connectoins before Supabase drops them
+    idleTimeoutMillis: 10000, // Close idle connections before Supabase drops them
     allowExitOnIdle: true,
   })
   // This catches background connection drops so they don't crash your entire server
