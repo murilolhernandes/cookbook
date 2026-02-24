@@ -10,6 +10,16 @@ let pool
 if (process.env.NODE_ENV == "development") {
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+    connectionTimeoutMillis: 30000, // Give Supabase 10 seconds to connect
+    idleTimeoutMillis: 10000, // Close idle connectoins before Supabase drops them
+    allowExitOnIdle: true,
+  })
+  // This catches background connection drops so they don't crash your entire server
+  pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err.message)
   })
 
   // Added for troubleshooting queries
@@ -32,6 +42,12 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false,
     },
+    idleTimeoutMillis: 10000,
   })
+
+  pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err.message)
+  })
+
   module.exports = pool
 }

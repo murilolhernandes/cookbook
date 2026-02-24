@@ -25,7 +25,7 @@ const cookieParser = require("cookie-parser")
 app.use(static)
 app.use(session({
   store: new (require('connect-pg-simple')(session)) ({
-    createTableIfMissing: true,
+    createTableIfMissing: false,
     pool,
   }),
   secret: process.env.SESSION_SECRET,
@@ -45,9 +45,53 @@ app.use(cookieParser())
 /* ***********************
  * Express Messages Middleware
 *************************/
-app.use(require('connect-flash')())
+// app.use(require('connect-flash')())
+// Custom flash middleware to avoid [DEP0044] util.isArray warning from connect-flash
+app.use(function(req, res, next) {
+  req.flash = function(type, msg) {
+    if (req.session === undefined) throw Error('req.flash() requires sessions');
+    let msgs = req.session.flash = req.session.flash || {};
+    if (type && msg) {
+      // Write message
+      if (Array.isArray(msg)) {
+        msg.forEach(val => {
+          (msgs[type] = msgs[type] || []).push(val);
+        });
+        return msgs[type].length;
+      }
+      return (msgs[type] = msgs[type] || []).push(msg);
+    } else if (type) {
+      // Read specific type
+      let arr = msgs[type];
+      delete msgs[type];
+      return arr || [];
+    } else {
+      // Read all
+      let allMsgs = { ...msgs };
+      req.session.flash = {};
+      return allMsgs;
+    }
+  }
+  next();
+})
 app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res)
+  // res.locals.messages = require('express-messages')(req, res)
+  // Custom implementation to avoid [DEP0044] util.isArray warning from express-messages
+  res.locals.messages = function() {
+    const messages = req.flash()
+    const types = Object.keys(messages)
+    if (types.length === 0) return ''
+    let buf = '<div id="messages">'
+    types.forEach(type => {
+      buf += `<ul class="${type}">`
+      messages[type].forEach(msg => {
+        buf += `<li>${msg}</li>`
+      })
+      buf += '</ul>'
+    })
+    buf += '</div>'
+    return buf
+  }
   next()
 })
 
@@ -55,12 +99,16 @@ app.use(function(req, res, next){
 app.use((req, res, next) => {
   const originalEnd = res.end;
   res.end = function (...args) {
-    if (req.session && req.session.flash && Object.keys(req.session.flash).length === 0) {
-      delete req.session.flash;
-    }
-    if (req.session && !req.session.loggedin && Object.keys(req.session).length <= 1) {
-    // if (req.session && !req.session.loggedin) {
-      req.session = null;
+    if (req.session) {
+      if (req.session.flash && Object.keys(req.session.flash).length === 0) {
+        delete req.session.flash;
+      }
+      if (!req.session.loggedin && !req.session.flash) {
+        req.session.destroy(err => {
+          if (err) console.error("Error destroying session:", err);
+        });
+        return originalEnd.apply(this, args);
+      }
     }
     return originalEnd.apply(this, args);
   };
@@ -113,6 +161,7 @@ app.use(async (err, req, res, next) => {
   // let nav = await utilities.getNav()
   let nav = "false"
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  console.error(err)
   let message
   if (err.status == 400) {
     message = err.message
