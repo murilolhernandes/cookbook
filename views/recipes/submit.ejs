@@ -22,19 +22,33 @@
     <fieldset>
       <legend>Share Your Recipe With Us</legend>
       <div>Required fields are marked with an <span class="required">*</span></div>
-      <label>Name <span class="required">*</span><input type="text" name="name" title="Please enter your name" autocomplete="name" placeholder="John Doe" required></label>
-      <label>Recipe's title <span class="required">*</span><input type="text" name="title" title="Please enter the title of your recipe" placeholder="Tasty Cake" required></label>
+      <!-- <label>Name <span class="required">*</span><input type="text" name="name" title="Please enter your name" autocomplete="name" placeholder="John Doe" required></label> -->
+      <label for="recipe_name">Recipe's Name <span class="required">*</span></label>
+      <input type="text" id="recipe_name" name="recipe_name" title="Please enter the title of your recipe" placeholder="Tasty Cake" required value="<%= locals.recipe_name %>">
+      <!-- Still need to find out how to add images to db -->
       <label>Image <span class="required">*</span><input type="file" accept="image/*" name="image" title="Please upload an image of your recipe" id="imageInput" required></label>
-      <label>Description <span class="required">*</span><textarea name="description" rows="5" placeholder="Enter a description of your recipe" title="Please enter a description of your recipe" required></textarea></label>
-      <label>Prep time <span class="required">*</span><input type="text" name="prep-time" title="Please enter the prep time" placeholder="15 mins" required></label>
-      <label>Cook time <span class="required">*</span><input type="text" name="cook-time" title="Please enter the cook time" placeholder="30 mins" required></label>
-      <label>Additional time <input type="text" name="additional-time" title="Please enter the additional time" placeholder="35 mins"></label>
-      <label>Total time <span class="required">*</span><input type="text" name="total-time" title="Please enter the total time" placeholder="80 mins" required></label>
-      <label>Servings <span class="required">*</span><input type="number" name="serving" title="Please enter the number of servings" placeholder="4" required></label>
-      <label>Yield <input type="text" name="yield" title="Please enter the yield" placeholder="4 servings"></label>
-      <label>Ingredients <span class="required">*</span><textarea name="ingredients" rows="5" placeholder="Enter each ingredient on a new line" title="Please enter the ingredients of your recipe" spellcheck="true" required></textarea></label>
-      <label>Instructions <span class="required">*</span><textarea name="instructions" rows="10" placeholder="Enter each step on a new line" title="Please enter the instructions of your recipe" spellcheck="true" required></textarea></label>
-      <input type="hidden" name="timestamp" id="timestamp">
+      <label for="description">Description <span class="required">*</span></label>
+      <textarea name="description" id="description" rows="5" placeholder="Enter a description of your recipe" title="Please enter a description of your recipe" required value="<%= locals.description %>"></textarea>
+      <label for="prep_time" >Prep time</label>
+      <input type="text" id="prep_time" name="prep_time" title="Please enter the prep time" placeholder="15 mins" value="<%= locals.prep_time %>">
+      <label for="cook_time">Cook time</label>
+      <input type="text" id="cook_time" name="cook_time" title="Please enter the cook time" placeholder="30 mins" value="<%= locals.cook_time %>">
+      <label for="additional_time">Additional time</label>
+      <input type="text" id="additional_time" name="additional_time" title="Please enter the additional time" placeholder="35 mins" value="<%= locals.additional_time %>">
+      <!--This could be added dynamically not by the player-->
+      <label for="total_time">Total time</label>
+      <input type="text" if="total_time" name="total_time" title="Please enter the total time" placeholder="80 mins" value="<%= locals.total_time %>">
+      <label for="serving">Servings 
+      <input type="number" id="serving" name="serving" title="Please enter the number of servings" placeholder="4" value="<%= locals.serving %>"></label>
+      <label for="yield">Yield</label>
+      <input type="text" id="yield" name="yield" title="Please enter the yield" placeholder="4 servings" value="<%= locals.yield %>">
+      <!--Ingredients are a different table in the db, and I need to find out how I am going to do this: add a new ingredient line for a new ingredient, or 
+      have a specific formatting for this textarea, where each ingredient needs to be on a new line, and the amount needs to followed immediately with the unit measurement-->
+      <label for="ingredient_name">Ingredients <span class="required">*</span></label>
+      <textarea name="ingredients" id="ingredient_name" name="ingredient_name" rows="5" placeholder="Enter each ingredient on a new line" title="Please enter the ingredients of your recipe" spellcheck="true" required value="<%= locals.ingredient_name %>"></textarea>
+      <label for="instructions">Instructions <span class="required">*</span></label>
+      <textarea name="instructions" id="instructions" name="instructions" rows="10" placeholder="Enter each step on a new line" title="Please enter the instructions of your recipe" spellcheck="true" required value="<%= locals.instructions %>"></textarea>
+      <input type="hidden" name="user_id" id="user_id">
       <input type="submit" value="Share My Recipe">
     </fieldset>
   </form>
