@@ -30,6 +30,23 @@ Util.getNav = async function(req, res, next) {
   return list
 }
 
+Util.getCategoryOptions = async function(category_id) {
+  try {
+    let data = await recpModel.getCategories()
+    let options = '<option value="">Select a category</option>'
+    data.rows.forEach((row) => {
+      options += `<option value="${row.category_id}"`
+      if (category_id != null && row.category_id == category_id) {
+        options += " selected"
+      }
+      options += `>${row.category_name}</option>`
+    })
+    return options
+  } catch (error) {
+    return console.error(error);
+  }
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

@@ -25,6 +25,9 @@
       <!-- <label>Name <span class="required">*</span><input type="text" name="name" title="Please enter your name" autocomplete="name" placeholder="John Doe" required></label> -->
       <label for="recipe_name">Recipe's Name <span class="required">*</span></label>
       <input type="text" id="recipe_name" name="recipe_name" title="Please enter the title of your recipe" placeholder="Tasty Cake" required value="<%= locals.recipe_name %>">
+      <label for="category_id">Category</label>
+      <select id="category_id" name="category_id" required>
+        <%- dropDownCategories %></select>
       <!-- Still need to find out how to add images to db -->
       <label>Image <span class="required">*</span><input type="file" accept="image/*" name="image" title="Please upload an image of your recipe" id="imageInput" required></label>
       <label for="description">Description <span class="required">*</span></label>
@@ -38,18 +41,25 @@
       <!--This could be added dynamically not by the player-->
       <label for="total_time">Total time</label>
       <input type="text" if="total_time" name="total_time" title="Please enter the total time" placeholder="80 mins" value="<%= locals.total_time %>">
-      <label for="serving">Servings 
-      <input type="number" id="serving" name="serving" title="Please enter the number of servings" placeholder="4" value="<%= locals.serving %>"></label>
+      <label for="serving">Servings</label>
+      <input type="number" id="serving" name="serving" title="Please enter the number of servings" placeholder="4" value="<%= locals.serving %>">
       <label for="yield">Yield</label>
       <input type="text" id="yield" name="yield" title="Please enter the yield" placeholder="4 servings" value="<%= locals.yield %>">
-      <!--Ingredients are a different table in the db, and I need to find out how I am going to do this: add a new ingredient line for a new ingredient, or 
-      have a specific formatting for this textarea, where each ingredient needs to be on a new line, and the amount needs to followed immediately with the unit measurement-->
-      <label for="ingredient_name">Ingredients <span class="required">*</span></label>
-      <textarea name="ingredients" id="ingredient_name" name="ingredient_name" rows="5" placeholder="Enter each ingredient on a new line" title="Please enter the ingredients of your recipe" spellcheck="true" required value="<%= locals.ingredient_name %>"></textarea>
+      <fieldset id="ingredients-container">
+        <legend>Ingredients <span class="required">*</span></legend>
+        <div class="ingredient-row">
+          <input type="number" step="0.01" name="amount[]" placeholder="Amount (e.g., 1.5)" required <%= locals.something %>>
+          <input type="text" name="unit[]" placeholder="Unit (e.g., cups)" required>
+          <input type="text" name="ingredient_name[]" placeholder="Ingredient Name" required>
+          <input type="text" name="notes[]" placeholder="Notes (e.g., finely chopped)">
+        </div>
+      </fieldset>
+      <button type="button" id="add-ingredient-btn"><!--Add a style to the plus button and an html plus tag instead of the standard plus-->+ Add Another Ingredient</button>
       <label for="instructions">Instructions <span class="required">*</span></label>
       <textarea name="instructions" id="instructions" name="instructions" rows="10" placeholder="Enter each step on a new line" title="Please enter the instructions of your recipe" spellcheck="true" required value="<%= locals.instructions %>"></textarea>
       <input type="hidden" name="user_id" id="user_id">
-      <input type="submit" value="Share My Recipe">
+      <input type="submit" value="Submit My Recipe">
     </fieldset>
   </form>
 </div>
+<script src="../../js/submit.js" defer></script>

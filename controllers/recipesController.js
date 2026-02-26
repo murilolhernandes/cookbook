@@ -8,10 +8,12 @@ const recipesController = {}
 recipesController.buildSubmitRecipes = async function (req, res, next) {
   // const nav = await utilities.getNav()
   const nav = "false"
+  let dropDownCategories = await utilities.getCategoryOptions()
   res.render("recipes/submit", {
     title: "Submit Your Recipe",
     nav,
     errors: null,
+    dropDownCategories,
   })
 }
 
