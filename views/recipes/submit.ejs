@@ -18,33 +18,32 @@
 
 <!-- <div><h2 class="wayfinding">Submit Your Recipe</h2></div> -->
 <div class="main-content">
-  <form id="submitRecipe" method="post" action="">
+  <form id="submitRecipe" method="post" action="/recipes/submit" enctype="multipart/form-data">
     <fieldset>
       <legend>Share Your Recipe With Us</legend>
       <div>Required fields are marked with an <span class="required">*</span></div>
-      <!-- <label>Name <span class="required">*</span><input type="text" name="name" title="Please enter your name" autocomplete="name" placeholder="John Doe" required></label> -->
       <label for="recipe_name">Recipe's Name <span class="required">*</span></label>
       <input type="text" id="recipe_name" name="recipe_name" title="Please enter the title of your recipe" placeholder="Tasty Cake" required value="<%= locals.recipe_name %>">
-      <label for="category_id">Category</label>
+      <label for="category_id">Category <span class="required">*</span></label>
       <select id="category_id" name="category_id" required>
         <%- dropDownCategories %></select>
-      <!-- Still need to find out how to add images to db -->
-      <label>Image <span class="required">*</span><input type="file" accept="image/*" name="image" title="Please upload an image of your recipe" id="imageInput" required></label>
+      <label for="image_url">Image <!-- <span class="required">*</span> --> </label>
+      <input type="file" accept="image/*" id="image_url" name="image_url" title="Please upload an image of your recipe" required > 
       <label for="description">Description <span class="required">*</span></label>
       <textarea name="description" id="description" rows="5" placeholder="Enter a description of your recipe" title="Please enter a description of your recipe" required value="<%= locals.description %>"></textarea>
-      <label for="prep_time" >Prep time</label>
-      <input type="text" id="prep_time" name="prep_time" title="Please enter the prep time" placeholder="15 mins" value="<%= locals.prep_time %>">
-      <label for="cook_time">Cook time</label>
+      <!-- <label for="prep_time" >Prep time</label>
+      <input type="text" id="prep_time" name="prep_time" title="Please enter the prep time" placeholder="15 mins" value="<%= locals.prep_time %>"> -->
+      <!-- <label for="cook_time">Cook time</label>
       <input type="text" id="cook_time" name="cook_time" title="Please enter the cook time" placeholder="30 mins" value="<%= locals.cook_time %>">
       <label for="additional_time">Additional time</label>
-      <input type="text" id="additional_time" name="additional_time" title="Please enter the additional time" placeholder="35 mins" value="<%= locals.additional_time %>">
-      <!--This could be added dynamically not by the player-->
-      <label for="total_time">Total time</label>
+      <input type="text" id="additional_time" name="additional_time" title="Please enter the additional time" placeholder="35 mins" value="<%= locals.additional_time %>"> -->
+      <!--This could be added dynamically through code-->
+      <!-- <label for="total_time">Total time</label>
       <input type="text" id="total_time" name="total_time" title="Please enter the total time" placeholder="80 mins" value="<%= locals.total_time %>">
       <label for="serving">Servings</label>
       <input type="number" id="serving" name="serving" title="Please enter the number of servings" placeholder="4" value="<%= locals.serving %>">
-      <label for="yield">Yield</label>
-      <input type="text" id="yield" name="yield" title="Please enter the yield" placeholder="4 servings" value="<%= locals.yield %>">
+      <label for="recipe_yield">Yield</label>
+      <input type="text" id="recipe_yield" name="recipe_yield" title="Please enter the yield" placeholder="4 servings" value="<%= locals.recipe_yield %>">
       <fieldset id="ingredients-container">
         <legend>Ingredients <span class="required">*</span></legend>
         <div class="ingredient-row" data-index="0">
@@ -57,11 +56,11 @@
           <label for="notes-0">Notes</label>
           <input type="text" id="notes-0" name="notes[]" placeholder="(e.g., finely chopped)">
         </div>
-      </fieldset>
-      <button type="button" id="add-ingredient-btn"><!--Add a style to the plus button and an html plus tag instead of the standard plus-->+ Add Another Ingredient</button>
+      </fieldset> -->
+      <!-- <button type="button" id="add-ingredient-btn">Add a style to the plus button and an html plus tag instead of the standard plus+ Add Another Ingredient</button> -->
       <label for="instructions">Instructions <span class="required">*</span></label>
       <textarea name="instructions" id="instructions" name="instructions" rows="10" placeholder="Enter each step on a new line" title="Please enter the instructions of your recipe" spellcheck="true" required value="<%= locals.instructions %>"></textarea>
-      <input type="hidden" name="user_id" id="user_id">
+      <!-- <input type="hidden" name="user_id" id="user_id"> -->
       <input type="submit" value="Submit My Recipe">
     </fieldset>
   </form>

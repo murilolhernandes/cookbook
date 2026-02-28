@@ -1,0 +1,22 @@
+<% const firstName = username.split(' ')[0] %>
+
+<!-- Content heading -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<!-- Message block -->
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+  <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
+
+<div class="management-view">
+  <!-- <p>Your recipe was submitted succesfully!</p> -->

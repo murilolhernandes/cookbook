@@ -106,15 +106,23 @@ label {
   padding: 1rem 0;
 }
 
-input:required, textarea:required {
+input:required, textarea:required, select:required {
   border-bottom: 8px solid red;
 }
 
-input:required:valid, textarea:required:valid {
+input:required:valid, textarea:required:valid, select:required:valid {
   border-bottom: 8px solid green;
 }
 
-input, textarea {
+select:required:invalid {
+  color: #757575;
+}
+
+option {
+  color: #3D3D3D;
+}
+
+input, textarea, select {
   width: 100%;
   padding: 1rem;
   font-family: "Open Sans", serif;
