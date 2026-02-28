@@ -8,23 +8,16 @@ const accountController = {}
 accountController.buildLogin = async function(req, res, next) {
   try {
     if (req.session.loggedin) {
-      const nav = "false"
-      const email = res.locals.accountData.email
-      const accountData  = await accountModel.getUserByEmail(email)
       return res.render("account/management", {
         title: "Account View",
-        nav,
         errors: null,
-        username: accountData.username,
-        email: accountData.email,
-        user_id: accountData.user_id,
+        username: req.session.accountData.username,
+        email: req.session.accountData.email,
+        user_id: req.session.accountData.user_id,
       })
     }
-    // const nav = await utilities.getNav()
-    const nav = "false"
     res.render("account/login", {
       title: "Login", 
-      nav,
       errors: null,
       SUPABASE_URL: process.env.SUPABASE_URL,
       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
@@ -74,17 +67,12 @@ accountController.googleAuth = async function(req, res, next) {
 
 accountController.buildAccount = async function(req, res, next) {
   try {
-    // let nav = await utilities.getNav()
-    let nav = "false"
-    const email = res.locals.accountData.email
-    const accountData  = await accountModel.getUserByEmail(email)
     res.render("account/management", {
       title: "Account View",
-      nav,
       errors: null,
-      username: accountData.username,
-      email: accountData.email,
-      user_id: accountData.user_id,
+      username: req.session.accountData.username,
+      email: req.session.accountData.email,
+      user_id: req.session.accountData.user_id,
     })
   } catch (error) {
     next(error);
@@ -99,19 +87,11 @@ accountController.logout = async function(req, res, next) {
   // so the flash message can be delivered on the next request.
   req.session.loggedin = false;
   req.session.accountData = null;
-  // delete req.session.loggedin
-  // delete req.session.accountData
 
   req.session.save(err => {
     if (err) return next(err);
     res.redirect("/?logout=success");
   });
 }
-
-// accountController.isLoggedIn = async function(req, res, next) {
-//   try {
-
-//   }
-// }
 
 module.exports = accountController

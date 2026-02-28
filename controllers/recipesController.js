@@ -108,14 +108,9 @@ recipesController.submitRecipe = async function (req, res, next) {
 
 recipesController.buildRecipeSubmitted = async function (req, res, next) {
   try {
-    // const email = res.locals.accountData.email
-    // const accountData  = await accountModel.getUserByEmail(email)
-    // const username = req.session.accountData.username;
-    // let dropDownCategories = await utilities.getCategoryOptions()
     res.render("recipes/submitted", {
       title: `Thank You For Submitting Your Recipe ${req.session.accountData.username.split(' ')[0]}`,
       errors: null,
-      // dropDownCategories,
       username: req.session.accountData.username,
       email: req.session.accountData.email,
       user_id: req.session.accountData.user_id,
