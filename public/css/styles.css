@@ -67,7 +67,7 @@ h1 {
   padding-bottom: 2rem; 
 }
 
-fieldset, input, textarea, select {
+fieldset, input, textarea, select, #add-ingredient-btn, .remove-btn {
   border-radius: 3px;
   border: 1px solid #E05B37;
 }
@@ -79,6 +79,10 @@ fieldset {
 
 .required {
   color: rgb(185, 39, 39);
+}
+
+#category_id {
+  padding: 0.5rem;
 }
 
 input[type="file"] {
@@ -118,22 +122,29 @@ input, textarea {
 }
 
 #ingredients-container {
-  border: 0;
+  /* border: 0; */
   margin: 1rem 0;
-  padding: 0;
+  /* padding: 0; */
 }
 
 #ingredients-container legend {
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
   font-family: "Open Sans", serif;
-  font-weight: 600;
-  color: #000;
+  /* font-weight: 600; */
+  /* color: #000; */
 }
 
 .ingredient-row {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  /* gap: 1rem; */
+}
+
+#add-ingredient-btn, .remove-btn {
+  background-color: #E05B37;
+  color: #F4F1DE;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 
 input[type="submit"] {

@@ -40,18 +40,22 @@
       <input type="text" id="additional_time" name="additional_time" title="Please enter the additional time" placeholder="35 mins" value="<%= locals.additional_time %>">
       <!--This could be added dynamically not by the player-->
       <label for="total_time">Total time</label>
-      <input type="text" if="total_time" name="total_time" title="Please enter the total time" placeholder="80 mins" value="<%= locals.total_time %>">
+      <input type="text" id="total_time" name="total_time" title="Please enter the total time" placeholder="80 mins" value="<%= locals.total_time %>">
       <label for="serving">Servings</label>
       <input type="number" id="serving" name="serving" title="Please enter the number of servings" placeholder="4" value="<%= locals.serving %>">
       <label for="yield">Yield</label>
       <input type="text" id="yield" name="yield" title="Please enter the yield" placeholder="4 servings" value="<%= locals.yield %>">
       <fieldset id="ingredients-container">
         <legend>Ingredients <span class="required">*</span></legend>
-        <div class="ingredient-row">
-          <input type="number" step="0.01" name="amount[]" placeholder="Amount (e.g., 1.5)" required <%= locals.something %>>
-          <input type="text" name="unit[]" placeholder="Unit (e.g., cups)" required>
-          <input type="text" name="ingredient_name[]" placeholder="Ingredient Name" required>
-          <input type="text" name="notes[]" placeholder="Notes (e.g., finely chopped)">
+        <div class="ingredient-row" data-index="0">
+          <label for="amount-0">Amount</label>
+          <input type="number" step="0.01" id="amount-0" name="amount[]" placeholder="(e.g., 1.5)" required <%= locals.something %>>
+          <label for="unit-0">Unit</label>
+          <input type="text" id="unit-0" name="unit[]" placeholder="(e.g., cups)" required>
+          <label for="ingredient_name-0">Ingredient Name</label>
+          <input type="text" id="ingredient_name-0" name="ingredient_name[]" placeholder="(e.g., Flour)" required>
+          <label for="notes-0">Notes</label>
+          <input type="text" id="notes-0" name="notes[]" placeholder="(e.g., finely chopped)">
         </div>
       </fieldset>
       <button type="button" id="add-ingredient-btn"><!--Add a style to the plus button and an html plus tag instead of the standard plus-->+ Add Another Ingredient</button>

@@ -13,7 +13,9 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false,
     },
-    connectionTimeoutMillis: 30000, // Give Supabase 10 seconds to connect
+    keepAlive: true,
+    max: 10,
+    connectionTimeoutMillis: 30000, // Give the server 30 seconds to connect
     idleTimeoutMillis: 10000, // Close idle connections before Supabase drops them
     allowExitOnIdle: true,
   })
@@ -42,6 +44,9 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false,
     },
+    keepAlive: true,
+    max: 10,
+    connectionTimeoutMillis: 30000,
     idleTimeoutMillis: 10000,
   })
 
