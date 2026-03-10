@@ -13,7 +13,7 @@ router.use(isAuthenticated) // update to display a message like 'Please log in b
 router.get("/submit", utilities.handleErrors(recipesController.buildSubmitRecipes));
 
 // Route to post the recipe
-router.post("/submit", upload.single('image_url'), utilities.handleErrors(recipesController.submitRecipe));
+router.post("/submit", upload.array('image_url', 5), utilities.handleErrors(recipesController.submitRecipe));
 
 // Route to get the recipe submitted via the form
 router.get("/submitted", utilities.handleErrors(recipesController.buildRecipeSubmitted));

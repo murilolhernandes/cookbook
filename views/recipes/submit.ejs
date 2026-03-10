@@ -28,9 +28,9 @@
       <select id="category_id" name="category_id" required>
         <%- dropDownCategories %></select>
       <label for="image_url">Image <!-- <span class="required">*</span> --> </label>
-      <input type="file" accept="image/*" id="image_url" name="image_url" title="Please upload an image of your recipe" required > 
-      <label for="description">Description <span class="required">*</span></label>
-      <textarea name="description" id="description" rows="5" placeholder="Enter a description of your recipe" title="Please enter a description of your recipe" required value="<%= locals.description %>"></textarea>
+      <input type="file" accept="image/*" id="image_url" name="image_url" multiple title="Please upload an image of your recipe" > 
+      <label for="description">Description <!-- <span class="required">*</span> --> </label>
+      <textarea name="description" id="description" rows="5" placeholder="Enter a description of your recipe" title="Please enter a description of your recipe" value="<%= locals.description %>"></textarea>
       <!-- <label for="prep_time" >Prep time</label>
       <input type="text" id="prep_time" name="prep_time" title="Please enter the prep time" placeholder="15 mins" value="<%= locals.prep_time %>"> -->
       <!-- <label for="cook_time">Cook time</label>
