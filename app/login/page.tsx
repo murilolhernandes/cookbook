@@ -1,7 +1,7 @@
 // import Link from "next/link";
 import Footer from '@/components/footer';
 import Header from '@/components/header';
-import LoginForm from '@/app/ui/login-form'
+import LoginForm from '@/app/ui/login/login-form'
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
