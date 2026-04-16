@@ -1,16 +1,47 @@
+'use client'
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { User, AuthChangeEvent, Session } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/client';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
-  const isLoggedIn = false;
-  const username = 'Chef';
+  const [user, setUser] = useState<User | null>(null);
+  // const [isMounted, setIsMounted] = useState(false);
+  const supabase = createClient();
+  const router = useRouter();
+
+  useEffect(() => {
+    // setIsMounted(true);
+
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push('/login');
+    router.refresh();
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-slate-900 border-b border-slate-800 p-4 md:grid md:grid-cols-[1fr_100px_1fr] md:gap-8 md:items-center">
       
       <nav className="hidden md:flex md:gap-8 md:justify-end text-slate-200 font-bold">
         <Link
-          href={isLoggedIn ? "/account/" : "/"}
+          href={user ? "/account/" : "/"}
           title="Return to home page"
           className="hover:text-blue-400 transition-colors"
         >
@@ -38,23 +69,24 @@ export default function Header() {
       </div>
       <nav className="hidden md:flex md:gap-8 md:justify-start text-slate-200 font-bold">
         <Link 
-          href="/recipes/submit" 
+          href="/submit-recipe" 
           title="Click to submit your recipe"
           className="hover:text-blue-400 transition-colors"
         >
-          Submit your recipe
+          Submit Recipe
         </Link>
         <div className="flex gap-8">
-          {isLoggedIn ? (
+          {user ? (
             <>
               <Link
                 href="/account/"
                 title="Click to manage your account"
                 className="hover:text-blue-400 transition-colors"
               >
-                Welcome {username}
+                Account
               </Link>
               <button
+                onClick={handleLogout}
                 title="Click to log out"
                 className="hover:text-blue-400 transition-colors cursor-pointer font-bold"
               >
@@ -67,7 +99,7 @@ export default function Header() {
               title="Click to log in"
               className="hover:text-blue-400 transition-colors"
             >
-              My Account
+              Login
             </Link>
           )}
         </div>

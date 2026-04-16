@@ -1,6 +1,4 @@
 // import Link from "next/link";
-import Footer from '@/components/footer';
-import Header from '@/components/header';
 import LoginForm from '@/app/ui/login/login-form'
 import { Metadata } from 'next';
 import { Suspense } from 'react';
@@ -11,16 +9,10 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div>
-      <Header />
-
-      <main className='min-h-screen'>
-        <Suspense>
-          <LoginForm />
-        </Suspense>
-      </main>
-
-      <Footer />
+    <div className='min-h-screen'>
+      <Suspense>
+        <LoginForm />
+      </Suspense>
     </div>
   );
 }
