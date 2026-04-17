@@ -63,6 +63,7 @@ export default function Header() {
             alt="cookbook project logo"
             width={100}
             height={100}
+            priority
             className="w-[100px] h-[100px] object-contain"
           />
         </Link>
