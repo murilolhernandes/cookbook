@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from '@/components/footer';
 import Header from '@/components/header';
+// import { useEffect, useState } from 'react';
+import { createServerSupabaseClient } from '@/utils/supabase/server';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +29,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createServerSupabaseClient();
+
+  const { data: { session } } = await supabase.auth.getSession();
+  
   return (
     <html
       lang="en"
@@ -37,7 +43,7 @@ export default async function RootLayout({
         className="min-h-full flex flex-col"
         suppressHydrationWarning
         >
-          <Header />
+          <Header session={session}/>
 
           <main className="flex-grow">
             {children}

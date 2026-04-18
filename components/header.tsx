@@ -2,33 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { User, AuthChangeEvent, Session } from '@supabase/supabase-js';
+import { Session } from '@supabase/supabase-js';
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
-export default function Header() {
-  const [user, setUser] = useState<User | null>(null);
-  // const [isMounted, setIsMounted] = useState(false);
+export default function Header({ session }: { session: Session | null }) {
   const supabase = createClient();
   const router = useRouter();
-
-  useEffect(() => {
-    // setIsMounted(true);
-
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    getUser();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -41,7 +21,7 @@ export default function Header() {
       
       <nav className="hidden md:flex md:gap-8 md:justify-end text-slate-200 font-bold">
         <Link
-          href={user ? "/account/" : "/"}
+          href={session ? "/account/" : "/"}
           title="Return to home page"
           className="hover:text-blue-400 transition-colors"
         >
@@ -77,7 +57,7 @@ export default function Header() {
           Submit Recipe
         </Link>
         <div className="flex gap-8">
-          {user ? (
+          {session ? (
             <>
               <Link
                 href="/account/"
