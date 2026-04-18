@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Session } from '@supabase/supabase-js';
+import { type User } from '@supabase/supabase-js';
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
-export default function Header({ session }: { session: Session | null }) {
+export default function Header({ user }: { user: User | null }) {
   const supabase = createClient();
   const router = useRouter();
 
@@ -21,7 +21,7 @@ export default function Header({ session }: { session: Session | null }) {
       
       <nav className="hidden md:flex md:gap-8 md:justify-end text-slate-200 font-bold">
         <Link
-          href={session ? "/account/" : "/"}
+          href={user ? "/account/" : "/"}
           title="Return to home page"
           className="hover:text-blue-400 transition-colors"
         >
@@ -57,7 +57,7 @@ export default function Header({ session }: { session: Session | null }) {
           Submit Recipe
         </Link>
         <div className="flex gap-8">
-          {session ? (
+          {user ? (
             <>
               <Link
                 href="/account/"
