@@ -11,47 +11,21 @@ export default function SubmitRecipeForm() {
     <div className='earth-card flex-1 p-8 mt-10'>
       <form action={formAction} className='w-full mx-auto'>
         <div>
-          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='name'>
-            Name of the Product
+          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='recipe_name'>
+            Name of the Recipe
           </label>
           <div className='relative'>
             <input
               className='peer block w-full rounded-md border border-stone-200 py-[9px] pl-10 text-sm text-stone-900 outline-2 placeholder:text-stone-400 focus:border-stone-800 focus:ring-stone-800'
-              id='name' type='text' name='name' placeholder='Enter the material of the product. (E.g. "River Reed Basket")' required
-              defaultValue={state?.fields?.name || ''}
+              id='recipe_name' type='text' name='recipe_name' placeholder='Enter the name of the recipe. (E.g. "Tasty Cake")' required
+              defaultValue={state?.fields?.recipeName || ''}
               />
             <TagIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] -translate-y-1/2 text-stone-400 peer-focus:text-stone-800' />
           </div>
         </div>
         <div>
-          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='slug'>
-            Slug
-          </label>
-          <div className='relative'>
-            <input
-              className='peer block w-full rounded-md border border-stone-200 py-[9px] pl-10 text-sm text-stone-900 outline-2 placeholder:text-stone-400 focus:border-stone-800 focus:ring-stone-800'
-              id='slug' type='text' name='slug' placeholder='Enter the slug of the product. (E.g "river-reed-basket")' required
-              defaultValue={state?.fields?.slug || ''}
-            />
-            <LinkIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] -translate-y-1/2 text-stone-400 peer-focus:text-stone-800' />
-          </div>
-        </div>
-        <div>
-          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='category'>
-            Category
-          </label>
-          <div className='relative'>
-            <input
-              className='peer block w-full rounded-md border border-stone-200 py-[9px] pl-10 text-sm text-stone-900 outline-2 placeholder:text-stone-400 focus:border-stone-800 focus:ring-stone-800'
-              id='category' type='text' name='category' placeholder='Enter the gategory of the product. (E.g. "Storage")' required
-              defaultValue={state?.fields?.category || ''}
-              />
-            <Square2StackIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] -translate-y-1/2 text-stone-400 peer-focus:text-stone-800' />
-          </div>
-        </div>
-        <div>
           <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='description'>
-            Product Description
+            Description
           </label>
           <div className='relative'>
             <textarea
@@ -59,20 +33,20 @@ export default function SubmitRecipeForm() {
               name='description'
               id='description'
               defaultValue={state?.fields?.description || ''}
-              placeholder='Enter the description of the product. (E.g. "A structured woven basket designed for blankets, books, or entryway essentials.")' required
+              placeholder='Enter the description of the product. (E.g. "Perfect cake to bake on Sundays after church.")' required
               className='peer block w-full rounded-md border border-stone-200 py-[9px] pl-10 text-sm text-stone-900 outline-2 placeholder:text-stone-400 focus:border-stone-800 focus:ring-stone-800'
               />
               <PencilSquareIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] -translate-y-1/2 text-stone-400 peer-focus:text-stone-800' />
           </div>
         </div>
         <div>
-          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='imageSrc'>
+          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='image_src'>
             Image
           </label>
           <div className='relative'>
             <input
               className='peer block w-full rounded-md border border-stone-200 py-[9px] pl-10 text-sm text-stone-900 outline-2 placeholder:text-stone-400 focus:border-stone-800 focus:ring-stone-800 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-stone-100 file:text-stone-700 hover:file:bg-stone-200'
-              id='imageSrc' type='file' name='imageSrc' required
+              id='image_src' type='file' name='image_src'
               accept='image/jpeg, image/png, image/webp, image/svg+xml, image/svg'
               />
             <PhotoIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] -translate-y-1/2 text-stone-400 peer-focus:text-stone-800' />
@@ -85,21 +59,34 @@ export default function SubmitRecipeForm() {
           <div className='relative'>
             <input
               className='peer block w-full rounded-md border border-stone-200 py-[9px] pl-10 text-sm text-stone-900 outline-2 placeholder:text-stone-400 focus:border-stone-800 focus:ring-stone-800'
-              id='imageAlt' type='text' name='imageAlt' placeholder='Enter the image description of the product. (E.g. "Woven reed basket in soft earth tones")' required
+              id='imageAlt' type='text' name='imageAlt' placeholder='Enter the description of the image. (E.g. "Tasty Cake baked at home")' required
               defaultValue={state?.fields?.imageAlt || ''}
               />
             <PencilSquareIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] -translate-y-1/2 text-stone-400 peer-focus:text-stone-800' />
           </div>
         </div>
         <div>
-          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='material'>
-            Material
+          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='category'>
+            Category
           </label>
           <div className='relative'>
             <input
               className='peer block w-full rounded-md border border-stone-200 py-[9px] pl-10 text-sm text-stone-900 outline-2 placeholder:text-stone-400 focus:border-stone-800 focus:ring-stone-800'
-              id='material' type='text' name='material' placeholder='Enter the material of the product. (E.g. "Handwoven reed and natural dye")' required
-              defaultValue={state?.fields?.material || ''}
+              id='category' type='text' name='category' placeholder='Enter the gategory of the product. (E.g. "Cakes, dessert")' required
+              defaultValue={state?.fields?.category || ''}
+              />
+            <Square2StackIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] -translate-y-1/2 text-stone-400 peer-focus:text-stone-800' />
+          </div>
+        </div>
+        <div>
+          <label className='mb-3 mt-5 block text-xs font-semibold uppercase tracking-wider text-stone-500' htmlFor='prep_time'>
+            Preparation Time
+          </label>
+          <div className='relative'>
+            <input
+              className='peer block w-full rounded-md border border-stone-200 py-[9px] pl-10 text-sm text-stone-900 outline-2 placeholder:text-stone-400 focus:border-stone-800 focus:ring-stone-800'
+              id='prep_time' type='text' name='prep_time' placeholder='Enter the preparation time. (E.g. "15 mins")' required
+              defaultValue={state?.fields?.prepTime || ''}
               />
             <CubeIcon className='pointer-events-none absolute left-3 top-1/2 h-[18px] -translate-y-1/2 text-stone-400 peer-focus:text-stone-800' />
           </div>
