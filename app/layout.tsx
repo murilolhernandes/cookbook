@@ -39,7 +39,7 @@ export default async function RootLayout({
       data-scroll-behavior="smooth"
     >
       <body 
-        className="min-h-full flex flex-col"
+        className="flex min-h-full flex-col overflow-x-hidden antialiased"
         suppressHydrationWarning
         >
           <Header user={user}/>
