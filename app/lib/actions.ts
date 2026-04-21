@@ -1,6 +1,13 @@
 'use server'
 
 import { createServerSupabaseClient } from '@/utils/supabase/server';
+import { v2 as cloudinary } from 'cloudinary';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 
 export async function addRecipe(
@@ -11,15 +18,14 @@ export async function addRecipe(
     const supabase = await createServerSupabaseClient();
 
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-
     if (authError || !user) {
       return { message: "You must be logged in to submit a recipe."};
     }
 
     const userId = user.id;
     const recipeName = formData.get('recipe_name') as string;
-    const imageFile = formData.get('imageSrc') as File; // add logic to cloudinary.
-    const imageAlt = formData.get('imageAlt') as string;
+    const imageFile = formData.get('imageS_url') as File; // add logic to cloudinary.
+    const imageAlt = formData.get('image_alt') as string;
     const description = formData.get('description') as string;
     const categoryRaw = formData.get('category') as string;
     const prepTimeRaw = formData.get('prep_time') as string;
@@ -53,7 +59,41 @@ export async function addRecipe(
       return { message: "Invalid category selected." };
     }
 
-    return { message: "Recipe added successfully!" };
+    const { data: newRecipe, error: recipeError } = await supabase
+      .from('recipes')
+      .insert({
+        user_id: user.id,
+        recipe_name: recipeName,
+        category_id: categoryId,
+      })
+      .select()
+      .single();
+
+    if (recipeError) throw recipeError;
+
+    if (imageFile && typeof imageFile === 'object' && 'arrayBuffer' in imageFile) {
+      const buffer = Buffer.from(await imageFile.arrayBuffer());
+      const base64Image = `data:${imageFile.type};base64,${buffer.toString('base64')}`;
+
+      const uploadResponse = await cloudinary.uploader.upload(base64Image, {
+        folder: 'family_recipes',
+      });
+
+      const { error: imageDbError } = await supabase
+        .from('recipe_images')
+        .insert({
+          recipe_id: newRecipe.recipe_id,
+          image_url: uploadResponse.secure_url,
+          is_primary: true
+        });
+
+        if (imageDbError) {
+          console.error("Failed to link image to recipe: ", imageDbError);
+          return { message: "Recipe saved, but failed to link the image." };
+        }
+    }
+
+    return { message: "Recipe and image added successfully!" };
   } catch (error) {
     console.error("Unexpected error in addRecipe action: ", error);
     // return { message: "An unexpected error occurred. Please try again.", fields };
